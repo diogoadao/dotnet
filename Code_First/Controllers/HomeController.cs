@@ -1,37 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Code_First.Models;
 using Microsoft.AspNetCore.Mvc;
-using Code_First.Models;
 
 namespace Code_First.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private LibraryContext _context;
+
+        public HomeController(LibraryContext context)
         {
-            return View();
+            _context = context;
         }
 
-        public IActionResult About()
+        public string Index()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            _context.Database.EnsureCreated();
+            return "Its okay";
         }
     }
 }
